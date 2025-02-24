@@ -1,0 +1,58 @@
+USE [UsersAndRewards]
+GO
+/****** Object:  Table [dbo].[Reward]    Script Date: 24.02.2025 17:29:18 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Reward](
+	[ID] [int] NOT NULL,
+	[Title] [varchar](50) NOT NULL,
+	[Description] [varchar](250) NOT NULL,
+ CONSTRAINT [PK_Reward] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 24.02.2025 17:29:18 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[ID] [int] NOT NULL,
+	[FirstName] [varchar](50) NOT NULL,
+	[LastName] [varchar](50) NOT NULL,
+	[Birthdate] [date] NOT NULL,
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UsersRewards]    Script Date: 24.02.2025 17:29:18 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UsersRewards](
+	[UserID] [int] NOT NULL,
+	[RewardID] [int] NOT NULL,
+ CONSTRAINT [PK_UsersRewards] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC,
+	[RewardID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[UsersRewards]  WITH CHECK ADD  CONSTRAINT [FK_UsersRewards_Reward] FOREIGN KEY([RewardID])
+REFERENCES [dbo].[Reward] ([ID])
+GO
+ALTER TABLE [dbo].[UsersRewards] CHECK CONSTRAINT [FK_UsersRewards_Reward]
+GO
+ALTER TABLE [dbo].[UsersRewards]  WITH CHECK ADD  CONSTRAINT [FK_UsersRewards_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([ID])
+GO
+ALTER TABLE [dbo].[UsersRewards] CHECK CONSTRAINT [FK_UsersRewards_User]
+GO
